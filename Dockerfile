@@ -1,10 +1,10 @@
 FROM amazonlinux:2018.03
-#Comments
-#   groupinstall "Development Tools" is necessary for xdebug
+# Comments
+# groupinstall "Development Tools" is necessary for xdebug
 
 # update amazon software repo
 RUN yum -y update && yum -y install shadow-utils yum-utils\
-    && yum-config-manager --enable remi-php56 && yum -y update
+    && yum-config-manager --enable remi-php74 && yum -y update
 
 #configure time zone
 RUN ln -f -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
@@ -19,17 +19,17 @@ RUN chkconfig httpd on
 RUN service httpd start
 
 #Install php
-RUN yum install -y php56 php56-devel php56-cli php56-common php56-gd php56-intl php56-jsonc php-pear\
-    php56-mbstring php56-mcrypt php56-mysqlnd php56-pdo php56-pecl-redis php56-soap php56-xml php56-xmlrpc
+RUN yum install -y php74 php74-devel php74-cli php74-common php74-gd php74-intl php74-jsonc php-pear\
+    php74-mbstring php74-mcrypt php74-mysqlnd php74-pdo php74-pecl-redis php74-soap php74-xml php74-xmlrpc
 
 #Configurações adicionais do php
 RUN echo 'include_path = ".:/usr/local/etc/php/"' >> /etc/php.ini
 
 #Install XDebug
-RUN pecl install xdebug-2.5.5
+RUN pecl install xdebug-3.0.4
 
 #Configuration XDebug
-RUN echo 'zend_extension=/usr/lib64/php/5.6/modules/xdebug.so' >> /etc/php.ini
+RUN echo 'zend_extension=/usr/lib64/php/7.4/modules/xdebug.so' >> /etc/php.ini
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -47,7 +47,7 @@ RUN mkdir "/conf.d" && version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSIO
     && mkdir -p /tmp/blackfire \
     && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
-    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /etc/php/7.3/fpm/conf.d/blackfire.ini
+    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /etc/php/7.4/fpm/conf.d/blackfire.ini
 
 EXPOSE  80
 
