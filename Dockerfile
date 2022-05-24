@@ -36,4 +36,4 @@ EXPOSE 80
 
 CMD /usr/bin/env bash start-servers;sleep infinity
 
-#ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
+ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
