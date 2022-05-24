@@ -23,6 +23,15 @@ RUN yum install -y php php-{devel,cli,mcrypt,pdo,redis,soap,xmlrpc,pear,cgi,comm
 RUN mv /tmp/systemctl.py /usr/bin/systemctl && chmod 755 /usr/bin/systemctl
 RUN /bin/bash /tmp/server-config.sh && rm /tmp/server-config.sh
 
+# Install XDebug
+RUN pecl install xdebug
+
+# Configuration XDebug
+RUN echo 'zend_extension=/usr/lib64/php/modules/xdebug.so' >> /etc/php.ini
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 EXPOSE 80
 
 CMD /usr/bin/env bash start-servers;sleep infinity
