@@ -6,7 +6,7 @@ This is the Git repository of the Docker image for apache with PHP. See a Hub pa
 | Docker Tag | GitHub Release | Apache Version | PHP Version | Amazon Linux Version |
 |-----|-------|-----|--------|--------|
 | php56 | php56 Branch | 2 | 5.6.x | 2018.4 |
-| php73 | php73 Branch | 2 | 7.3.x | 2018.4 |
+| php73 | php73 Branch | 2 | 7.3.x | 2 |
 | php74 | php74 Branch | 2 | 7.4.x | 2018.4 |
 
 # Contributing
